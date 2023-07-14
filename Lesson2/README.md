@@ -7,8 +7,9 @@ docker build --platform linux/amd64 -t maximognev/otus-lesson:docker -f .\docker
 ```
 
 2. В сервисе доступны запросы:
-```
+
 - "/health" - адрес запроса готовности сервиса. Возвращает:
+
 ```json
 Status 200 OK
 {
