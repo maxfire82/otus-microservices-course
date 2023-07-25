@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: otus-lesson-replicaset
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: otus-lesson
+  template:
+    metadata:
+      labels:
+        app: otus-lesson
+    spec:
+      containers:
+      - name: otus-lesson
+        image: maximognev/otus-lesson:docker
+        resources:
+          limits:
+            memory: 258Mi
+            cpu: 100m
+        ports:
+          - containerPort: 80

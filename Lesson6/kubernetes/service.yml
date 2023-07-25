@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: otus-lesson-service
+spec:
+  selector:
+    app: otus-lesson
+  ports:
+    - protocol: TCP
+      port: 8000
+      targetPort: 8000
+  type: NodePort
