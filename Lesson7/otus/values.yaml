@@ -23,7 +23,7 @@ ingress:
     - host: arch.homework
       paths:
       - path: /otusapp/(.*)
-        pathType: Prefix
+        pathType: ImplementationSpecific
 
   tls: []
   #  - secretName: chart-example-tls

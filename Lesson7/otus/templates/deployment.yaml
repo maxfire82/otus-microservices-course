@@ -50,7 +50,7 @@ spec:
               port: 80
               path: /health
             initialDelaySeconds: 15
-            periodSeconds: 30
+            periodSeconds: 10
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           env:

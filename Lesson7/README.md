@@ -43,6 +43,7 @@ newman run tests/users.json
 - helm dependency build bitnami/postgresql - для скачивания зависимостей
 - helm upgrade bitnami/postgresql -f postgresql-values.yaml - обновление чарта
 - helm repo add bitnami https://charts.bitnami.com/bitnami - добавление репозитория
+- helm install --dry-run
 
 2. Полезные ссылки
 
@@ -76,3 +77,6 @@ dotnet ef --startup-project ..\Otus\ database update
 kubectl get pvc
 kubectl delete pvc mypvc
 ```
+
+
+curl --location 'http://arch.homework/otusapp/health' --header 'Host: arch.homework'

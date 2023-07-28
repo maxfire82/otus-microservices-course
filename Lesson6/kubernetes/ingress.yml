@@ -11,7 +11,7 @@ spec:
     http:
       paths:
       - path: /otusapp/(.*)/(.*)
-        pathType: Prefix
+        pathType: ImplementationSpecific
         backend:
           service:
             name: otus-lesson-service
