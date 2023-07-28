@@ -23,8 +23,9 @@ Status 200 OK
     "status": "OK"
 }
 ```
+## Документация 
 
-4. Основные команды 
+1. Основные команды 
 
 - kubectl create -f pod.yml  - создает сущность
 - kubectl apply -f - создает или обновляет все сущности из файла
@@ -36,10 +37,12 @@ Status 200 OK
 - kubectl scale --replicas=2 replicaset myrs - устанваливает кол-во реплик
 - kubectl describe rs myrs - выводит информацию по сущности 
 - kubectl rollout undo deployment my-dep - откатываем изменения
+- kubectl port-forward mypod 8000:80 & - перенаправляет порт 8000 хоста на 80 порт пода
+- kubectl exec -it mypod -- bash - войти в bash на поде
 
 [Шпаргалка по командам Kubernetes](https://kubernetes.io/ru/docs/reference/kubectl/cheatsheet/)
 
-5. Если Ingress не поднимается проверяем по инуструкции
+2. Если Ingress не поднимается проверяем по инуструкции
 
 ```
 Here’s what worked for me:
@@ -67,7 +70,7 @@ Hit the hello-world.info ( or whatever host you configured in the yaml file) in 
 
 Append 127.0.0.1 hello-world.info to your /etc/hosts file on MacOS **(NOTE: Do NOT use the Minikube IP)**
 
-6. Полезные советы 
+3. Полезные советы 
 ```
 kubeclt complition - создает полезные alias в разлиных оболочках
 ``` 

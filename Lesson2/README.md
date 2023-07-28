@@ -15,8 +15,9 @@ Status 200 OK
     "status": "OK"
 }
 ```
+## Документация
 
-3. Основные команды
+1. Основные команды
 - [docker images [OPTIONS] [REPOSITORY[:TAG]]](https://docs.docker.com/engine/reference/commandline/ps/) - показывает список образов
 - [docker images [OPTIONS] [REPOSITORY[:TAG]]](https://docs.docker.com/engine/reference/commandline/images/) - показывает список образов
 - [docker push maximognev/otus-lesson:docker](https://docs.docker.com/engine/reference/commandline/push/)  - отправляет образ на docker hub
