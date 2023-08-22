@@ -1,0 +1,20 @@
+{{- if .Values.metrics.serviceMonitor.enabled }}
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: {{ include "otus.fullname" . }}
+  labels:
+    {{- include "otus.labels" . | nindent 4 }}
+spec:
+  jobLabel: {{ include "otus.fullname" . }}
+  namespaceSelector:
+    matchNames:
+    - "{{ $.Release.Namespace }}"
+  selector:
+    matchLabels:
+      {{- include "otus.selectorLabels" . | nindent 6 }}
+  endpoints:
+  - interval: 30s
+    port: http
+    path: /metrics
+{{- end }}

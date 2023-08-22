@@ -1,0 +1,76 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: "{{ include "otus.fullname" . }}-dep"
+  labels:
+    {{- include "otus.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      {{- include "otus.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "otus.selectorLabels" . | nindent 8 }}
+      annotations:
+        checksum/config: {{ include (print $.Template.BasePath "/config.yaml") . | sha256sum }}
+    spec:
+      initContainers:
+        - name: check-db-ready
+          image: postgres:latest
+          env:
+            - name: USERS_DB_HOST
+              value: {{ include "postgresql.fullname" . | quote }}
+            - name: USERS_DB_PORT
+              value: {{ .Values.postgresql.containerPorts.postgresql | quote }}
+          command:
+            - sh
+            - "-c"
+            - |
+              until pg_isready -h $USERS_DB_HOST  -p  $USERS_DB_PORT; 
+              do echo waiting for database; sleep 2; done;
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - name: http
+              containerPort: 80
+              protocol: TCP
+          livenessProbe:
+            httpGet:
+              port: 80
+              path: /
+            initialDelaySeconds: 15
+            periodSeconds: 10
+            timeoutSeconds: 3
+          readinessProbe:
+            httpGet:
+              port: 80
+              path: /health
+            initialDelaySeconds: 15
+            periodSeconds: 10
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+          env:
+            - name: USERS_DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: otus-app-secret
+                  key: USERS_DB_PASSWORD
+            - name: USERS_DB_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: otus-app-secret
+                  key: USERS_DB_USERNAME
+            - name: USERS_DB_NAME
+              valueFrom:
+                configMapKeyRef:
+                  name: otus-app-config
+                  key: USERS_DB_NAME
+            - name: USERS_DB_HOST
+              value: {{ include "postgresql.fullname" . | quote }}
+            - name: USERS_DB_PORT
+              value: {{ .Values.postgresql.containerPorts.postgresql | quote }}
+            

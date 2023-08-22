@@ -25,7 +25,24 @@ Status 200 OK
 ```
 ## Документация 
 
-1. Основные команды 
+1. Устанваливанием Minikube
+
+```shell
+minikube status
+minikube --help
+minikube ip
+minikube dashboard
+```
+
+-- Стартуем миникуб (используем драйвер vmware/hyperv - через него получается адекватно пробрасывать IP)
+Если использовать драйвер докер то могут возникнуть проблемы при использовании minikube IP в /etc/hosts
+
+```shell
+minikube start --cpus=6 --memory=6g --vm-driver=hyperv
+```
+
+
+2. Основные команды 
 
 - kubectl create -f pod.yml  - создает сущность
 - kubectl apply -f - создает или обновляет все сущности из файла
@@ -42,7 +59,7 @@ Status 200 OK
 
 [Шпаргалка по командам Kubernetes](https://kubernetes.io/ru/docs/reference/kubectl/cheatsheet/)
 
-2. Если Ingress не поднимается проверяем по инуструкции
+3. Если Ingress не поднимается проверяем по инуструкции
 
 ```
 Here’s what worked for me:
@@ -70,7 +87,7 @@ Hit the hello-world.info ( or whatever host you configured in the yaml file) in 
 
 Append 127.0.0.1 hello-world.info to your /etc/hosts file on MacOS **(NOTE: Do NOT use the Minikube IP)**
 
-3. Полезные советы 
+4. Полезные советы 
 ```
 kubeclt complition - создает полезные alias в разлиных оболочках
 ``` 
