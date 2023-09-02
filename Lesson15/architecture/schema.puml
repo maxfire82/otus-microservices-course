@@ -1,0 +1,43 @@
+@startuml
+skinparam defaultTextAlignment center
+
+actor User [
+    User request
+]
+
+rectangle Kubernetes #line.dotted; {
+rectangle "Profile mcs" {
+component Profile [
+    User Service
+    GET /api/profile/{userId} 
+    PUT /api/profile/{userId}
+]
+
+database "UsersDb" {
+}
+}
+rectangle "Auth mcs" {
+component Auth [
+  Auth Service
+  POST /api/auth/create 
+  POST /api/auth/login
+] 
+database "AuthDb" {
+}
+}
+
+component Gateway [
+    Api Gateway
+    (Traefik)
+]
+
+}
+
+
+User -right-> Gateway
+Gateway -down-> Profile
+Gateway -down-> Auth: GET Authorization: Bearer Token
+Auth .down.> AuthDb
+Profile .down.> UsersDb
+
+@enduml

@@ -39,6 +39,8 @@ minikube dashboard
 
 ```shell
 minikube start --cpus=6 --memory=6g --vm-driver=hyperv
+или
+minikube start --vm-driver=hyperv --force
 ```
 
 
@@ -56,6 +58,7 @@ minikube start --cpus=6 --memory=6g --vm-driver=hyperv
 - kubectl rollout undo deployment my-dep - откатываем изменения
 - kubectl port-forward mypod 8000:80 & - перенаправляет порт 8000 хоста на 80 порт пода
 - kubectl exec -it mypod -- bash - войти в bash на поде
+- kubectl 
 
 [Шпаргалка по командам Kubernetes](https://kubernetes.io/ru/docs/reference/kubectl/cheatsheet/)
 

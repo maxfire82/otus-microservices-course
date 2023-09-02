@@ -1,0 +1,62 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: otus-migration-user-job
+  annotations:
+    # This is what defines this resource as a hook. Without this line, the
+    # job is considered part of the release.
+    "helm.sh/hook": post-install
+    #"helm.sh/hook-weight": "-5"
+    "helm.sh/hook-delete-policy": hook-succeeded
+spec:
+  backoffLimit: 1
+  template:
+    metadata:
+      labels:
+         app: otus-migration-user-job
+    spec:
+      restartPolicy: Never
+      initContainers:
+        - name: check-users-db-ready
+          image: postgres:latest
+          env:
+            - name: POSTGRES_HOST
+              value: {{ include "postgresusers.fullname" . | quote }}
+            - name: POSTGRES_PORT
+              value: {{ .Values.postgresusers.containerPorts.postgresql | quote }}
+          command:
+            - sh
+            - "-c"
+            - |
+              until pg_isready -h $POSTGRES_HOST  -p  $POSTGRES_PORT; 
+              do echo waiting for database; sleep 2; done;
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - name: http
+              containerPort: 80
+              protocol: TCP
+          env:
+            - name: USERS_DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: otus-users-secret
+                  key: USERS_DB_PASSWORD
+            - name: USERS_DB_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: otus-users-secret
+                  key: USERS_DB_USERNAME
+            - name: USERS_DB_NAME
+              valueFrom:
+                configMapKeyRef:
+                  name: otus-users-config
+                  key: USERS_DB_NAME
+            - name: USERS_DB_HOST
+              value: {{ include "postgresusers.fullname" . | quote }}
+            - name: USERS_DB_PORT
+              value: {{ .Values.postgresusers.containerPorts.postgresql | quote }}
+            - name: USERS_DB_MIGRATE
+              value: "true"
