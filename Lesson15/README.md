@@ -5,9 +5,11 @@
 ![architecture/schema.puml](https://www.plantuml.com/plantuml/proxy?fmt=svg&src=https://raw.githubusercontent.com/maxfire82/otus-microservices-course/main/Lesson15/architecture/schema.puml)
 
 В качестве APIGateway используется Traefik.
+
 Аутентификации реализована на основе JWT токена.
 
-Сервис `Auth` осуществляет за регистрацию и авторизацию аккаунта пользователя.
+Сервис `Auth` осуществляет регистрацию и аутентификацию аккаунта пользователя.
+
 Сервис `Users` осуществляет управление профилем пользователя. Запросы в сервис осуществляются только с JWT токеном.
 
 ## Установка
