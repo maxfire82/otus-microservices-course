@@ -2,7 +2,7 @@
 
 ## Архитектура приложения
 
-![architecture/schema.puml](http://www.plantuml.com/plantuml/proxy?fmt=svg&src=https://github.com/maxfire82/otus-microservices-course/blob/main/Lesson15/architecture/schema.puml)
+![architecture/schema.puml](https://www.plantuml.com/plantuml/proxy?fmt=svg&src=https://raw.githubusercontent.com/maxfire82/otus-microservices-course/main/Lesson15/architecture/schema.puml)
 
 В качестве APIGateway используется Traefik.
 Аутентификации реализована на основе JWT токена.
