@@ -1,0 +1,15 @@
+dependencies:
+- name: traefik
+  repository: https://helm.traefik.io/traefik
+  version: 22.3.0
+- name: users
+  repository: ""
+  version: 0.1.x
+- name: auth
+  repository: ""
+  version: 0.1.x
+- name: orders
+  repository: ""
+  version: 0.1.x
+digest: sha256:5f0482790bd278a4b09d8fbbacbd881847f54197775c1df56dd8dc850c23e7a7
+generated: "2023-09-28T08:57:48.2335199+03:00"

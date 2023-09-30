@@ -9,3 +9,5 @@
 4. [Prometheus & Grafana](./Lesson10/README.md)
 
 5. [API Gateway](./Lesson15/README.md)
+
+6. [Идемпотентность](./Lesson22/README.md)

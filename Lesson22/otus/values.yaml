@@ -1,0 +1,109 @@
+# Default values for helm.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+ingress:
+  enabled: true
+  hosts:
+    - host: arch.homework
+      paths:
+      - path: /api/account
+        pathType: ImplementationSpecific
+      - path: /api/profile
+        pathType: ImplementationSpecific
+      - path: /api/orders
+        pathType: ImplementationSpecific
+
+  tls: []
+
+resources:
+  limits:
+    cpu: 100m
+    memory: 256Mi
+
+traefik:
+  enabled: true
+  ports:
+    websecure:
+      expose: false
+  providers:
+    kubernetesCRD:
+      namespaces: []
+    kubernetesIngress:
+      enabled: false
+  logs:
+    access:
+      enabled: true
+    general:
+      level: DEBUG
+
+users:
+  enabled: true
+  image:
+    repository: maximognev/otus-users
+    tag: "v22"
+    pullPolicy: Always
+  postgresusers:
+    enabled: true
+    auth:
+      username: myuser
+      password: qwerty1
+      database: UsersDb
+    containerPorts: 
+      postgresql: 5432
+    primary:
+      persistence:
+        size: 256Mi
+      resources: 
+        requests:
+          memory: 256Mi
+
+auth:
+  enabled: true
+  image:
+    repository: maximognev/otus-auth
+    tag: "v22"
+    pullPolicy: Always
+  postgresauth:
+    enabled: true
+    auth:
+      username: myuser
+      password: qwerty1
+      database: AuthDb
+    containerPorts: 
+      postgresql: 5432
+    primary:
+      persistence:
+        size: 256Mi
+      resources: 
+        requests:
+          memory: 256Mi
+
+orders:
+  enabled: true
+  image:
+    repository: maximognev/otus-orders
+    tag: "v22"
+    pullPolicy: Always
+  postgresorders:
+    enabled: true
+    auth:
+      username: myuser
+      password: qwerty1
+      database: OrdersDb
+    containerPorts:
+      postgresql: 5432
+    primary:
+      persistence:
+        size: 256Mi
+      resources:
+        requests:
+          memory: 256Mi
+              
+metrics:
+  serviceMonitor:
+    enabled: true
+
+jwt:
+  secret:
+    key: "e4d3eda269734ca2b3e887427e5e4df5e4d3eda269734ca2b3e887427e5e4df5e4d3eda269734ca2b3e887427e5e4df5"

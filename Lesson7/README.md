@@ -43,7 +43,7 @@ newman run tests/users.json
 - helm dependency build bitnami/postgresql - для скачивания зависимостей
 - helm upgrade bitnami/postgresql -f postgresql-values.yaml - обновление чарта
 - helm repo add bitnami https://charts.bitnami.com/bitnami - добавление репозитория
-- helm install --dry-run
+- helm install otus-demo otus --dry-run
 
 2. Полезные ссылки
 
@@ -64,10 +64,11 @@ choco install kubernetes-helm
 2. Проект .Net core
 
 При создании миграции EF необходимо указать стартовый проект
+Запускаем из папки Domain проекта. --startup-project - указывает на место расположение Api проекта.
 
 ```shell
-dotnet ef --startup-project ..\Otus\ migrations add Init
-dotnet ef --startup-project ..\Otus\ database update
+dotnet ef --startup-project ..\Otus.Api\ migrations add Init
+dotnet ef --startup-project ..\Otus.Api\ database update
 ```
 
 3. Проблема с чартом `postgresql` с некорректными даными авторизации лечится путем удалнения постоянного хранилища в kubernetes.

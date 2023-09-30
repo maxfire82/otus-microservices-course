@@ -1,0 +1,37 @@
+
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
+  name: profile-replace
+spec:
+  chain:
+    middlewares:
+    - name: api-strip
+    - name: profile-strip
+    - name: user-add
+---
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
+  name: api-strip
+spec:
+  stripPrefix:
+    prefixes:
+      - /api
+---
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
+  name: profile-strip
+spec:
+  stripPrefix:
+    prefixes:
+      - /profile
+---
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
+  name: user-add
+spec:
+  addPrefix:
+    prefix: /user

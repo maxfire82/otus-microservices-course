@@ -1,0 +1,33 @@
+{{- $fullName := include "otus.fullname" . -}}
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: "{{ $fullName }}-traefik-gateway"
+spec:
+  entryPoints:
+      - web
+  routes:
+    - kind: Rule
+      match: PathPrefix(`/api/profile`)
+      priority: 1
+      services:
+        - name: {{ include "users.fullname" .Subcharts.users }}
+          port: 80
+      middlewares:
+        - name: profile-replace
+    - kind: Rule
+      match: PathPrefix(`/api/account`)
+      priority: 2
+      services:
+        - name: {{ include "auth.fullname" .Subcharts.auth }}
+          port: 80
+      middlewares:
+        - name: api-strip
+    - kind: Rule
+      match: PathPrefix(`/api/orders`)
+      priority: 2
+      services:
+        - name: {{ include "orders.fullname" .Subcharts.orders }}
+          port: 80
+      middlewares:
+        - name: api-strip
