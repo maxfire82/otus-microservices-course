@@ -20,7 +20,6 @@ var port = configuration.GetValue<string>("ORDERS_DB_PORT");
  var shouldCreateDb = configuration.GetValue<bool?>("ORDERS_DB_MIGRATE") ?? false;
 
 var ordersDbConnection = $"Server={host};Database={database};Port={port};User Id={username};Password={password};Maximum Pool Size=100"; 
-//var ordersDbConnection = $"Server=localhost;Database=OrderDb;Port=5432;User Id=postgres;Password=e4d3eda269734ca2b3e887427e5e4df5;Maximum Pool Size=100";
 
 // Add services to the container.
 builder.Services.AddDomainServices(ordersDbConnection);

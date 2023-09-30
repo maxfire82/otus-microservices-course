@@ -10,8 +10,6 @@ helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
 helm repo add traefik https://helm.traefik.io/traefik
 helm repo update
 
-#helm install  traefik traefik/traefik --namespace traefik --create-namespace
-
 # install ingress-controller and postgres exporter like helm application
 helm install nginx ingress-nginx/ingress-nginx -f ingress/nginx-ingress.yaml --namespace ingress-nginx --create-namespace --skip-crds
 
