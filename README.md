@@ -11,3 +11,7 @@
 5. [API Gateway](./Lesson15/README.md)
 
 6. [Идемпотентность](./Lesson22/README.md)
+
+7. [Паттерны декомпозиции микросервисов](./Lesson28/README.md)
+
+8. [Паттерны поддержания консистентности данных (Stream processing)](./Lesson38/README.md)
