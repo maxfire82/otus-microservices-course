@@ -16,3 +16,4 @@
 
 ![Событийное взаимодействие](https://www.plantuml.com/plantuml/proxy?fmt=svg&src=https://raw.githubusercontent.com/maxfire82/otus-microservices-course/main/Lesson38/architecture/event_schema.puml)
 
+Вариант 2  более подходящее решение, так как часть взаимодейсвтия сервисов переноводит в асинхронный режим и при этом не сильно усложняет топологию всей системы. 
