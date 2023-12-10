@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: otus-users-config
+data:
+  USERS_DB_NAME: {{ .Values.postgresusers.auth.database }}
+
+
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: otus-users-secret
+type: Opaque
+data:
+  USERS_DB_PASSWORD: {{ .Values.postgresusers.auth.password | b64enc | quote }}
+  USERS_DB_USERNAME: {{ .Values.postgresusers.auth.username | b64enc | quote }}
+
+  
